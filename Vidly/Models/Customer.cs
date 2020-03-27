@@ -2,12 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
+
 
 namespace Vidly.Models
 {
     public class Customer
     {
         public int Id { get; set; }
+
+        // overriding default conventions / data annotations
+        [Required]
+        [StringLength(255)]
         public string Name { get; set; }
         // To add IsSubscribedToNewsLetter to customer class and customer table 
         public bool IsSubscribedToNewsLetter { get; set; }
