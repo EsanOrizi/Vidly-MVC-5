@@ -21,5 +21,7 @@ namespace Vidly.Models
         public MembershipType MembershipType { get; set; }
         // this property is a foreign key 
         public byte MembershipTypeId { get; set; }
+        // Add BirthDate to customer Model, use ? so its nullable 
+        public DateTime? BirthDate { get; set;}
     }
 }

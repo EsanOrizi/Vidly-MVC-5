@@ -1,6 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\packages",
+    "\\Vidly",
+    "\\Vidly\\Models"
   ],
+  "SelectedNode": "\\Vidly\\Models\\Customer.cs",
   "PreviewInSolutionExplorer": false
 }

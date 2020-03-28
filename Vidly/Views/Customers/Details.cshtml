@@ -6,3 +6,12 @@
 }
 
 <h2>@Model.Name</h2>
+<ul>
+    @*Add Bithdate to Details view*@
+    @if (Model.BirthDate.HasValue)
+    {@* Value.ToShortDateString() after Birthdate to get rid of time  *@
+    <li>Bithdate: @Model.BirthDate.Value.ToShortDateString()</li>
+}
+    <li>Membership Type: @Model.MembershipType.MembershipTypeName</li>
+
+</ul>

@@ -51,7 +51,10 @@ namespace Vidly.Controllers
         public ActionResult Details(int id)
         {
             // 6. get the data from the database, becuase of SingleOrDefault our query is executed straight away
-            var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
+            // var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
+
+            // Solution to section 3 part 2 exercise, Include(c => c.MembershipType) is to add MembershipType to customer, so can be used in customer details view
+            var customer = _context.Customers.Include(c => c.MembershipType).SingleOrDefault(c => c.Id == id);
 
             if (customer == null)
                 return HttpNotFound();
