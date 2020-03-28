@@ -1,23 +1,36 @@
 ﻿@model IEnumerable<Vidly.Models.Movie>
 
-@{
-    ViewBag.Title = "Movies";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+    @{
+        ViewBag.Title = "Movies";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
 
-<h2>Movies</h2>
-<table class="table table-bordered table-hover">
-    <thead>
-        <tr>
-            <th>Movie</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var movie in Model)
-        {
-            <tr>
-                <td>@movie.Name</td>
-            </tr>
-        }
-    </tbody>
-</table>
+    <h2>Movies</h2>
+    @if (!Model.Any())
+    {
+        <p>We don't have any movies yet.</p>
+    }
+
+
+    
+    else
+    {
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Movies</th>
+                    <th>Genre</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var movie in Model)
+                {
+                    <tr>
+                        <td>@Html.ActionLink(movie.Name, "Details", "Movies", new { id = movie.Id }, null)</td>
+                        @* we need to eager load MembershipType table, will get null exception if don't, can also add % symbol after the c#  *@
+                        <td>@movie.Genre.Name</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
