@@ -3,6 +3,9 @@ using System.Linq;
 using System.Web.Mvc;
 using Vidly.Models;
 
+// to have Include functionality
+using System.Data.Entity;
+
 namespace Vidly.Controllers
 {
     public class CustomersController : Controller
@@ -33,7 +36,14 @@ namespace Vidly.Controllers
             // 5. when this line is executed, entity framework is not going to query the database, deferred execution
             // the query is excuted when we iterate over the object
             // .ToList after the customer executes the query staright away
-            var customers = _context.Customers.ToList();
+
+
+            // to eager load membershipType
+            // var customers = _context.Customers.ToList();
+            // TO THIS var customers = _context.Customers.Include(c => c.MembershipType).ToList();
+
+
+            var customers = _context.Customers.Include(c => c.MembershipType).ToList();
 
             return View(customers);
         }
