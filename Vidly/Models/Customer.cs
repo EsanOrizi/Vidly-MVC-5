@@ -21,6 +21,9 @@ namespace Vidly.Models
         public MembershipType MembershipType { get; set; }
         // this property is a foreign key 
         public byte MembershipTypeId { get; set; }
+
+        // thsi is to the display name for birthdate is date of birth
+        [Display(Name = "Date of Birth")]
         // Add BirthDate to customer Model, use ? so its nullable 
         public DateTime? BirthDate { get; set;}
     }

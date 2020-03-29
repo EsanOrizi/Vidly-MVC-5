@@ -27,6 +27,17 @@ namespace Vidly.Controllers
         protected override void Dispose(bool disposing)
         {
             _context.Dispose();
+
+
+        }
+
+
+
+        // add a new action result for new customer page
+        public ActionResult New()
+        {
+
+            return View();
         }
 
 
@@ -47,6 +58,10 @@ namespace Vidly.Controllers
 
             return View(customers);
         }
+
+
+        
+
 
         public ActionResult Details(int id)
         {

@@ -1,0 +1,45 @@
+﻿
+@*here we set the model for this view*@
+@model Vidly.Models.Customer 
+
+
+@{
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>New Customer</h2>
+
+@*This BeginForm renders the form begin tag <form>*@
+@*If we wrap the Html..... in using () at the end of using it disposes the tag, and at the dispose method we can add a </form> tag  *@
+
+@using (Html.BeginForm("Create", "Customers"))
+{
+    @* we can either write raw html or @Html.method *@ 
+<div class="form-group">
+
+    @* a lambda expression that specifies the name of the property of the model used in this form*@
+    @* m as in model goes to m.Name , razor view uses the name property as the label for out html property*@
+    @Html.LabelFor(m => m.Name)
+    @* new { @class = "form-control"} give a field a modern bootstrap compatible look*@
+    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+
+    @Html.LabelFor(m => m.BirthDate)
+    @Html.TextBoxFor(m => m.BirthDate, new { @class = "form-control" })
+    
+    @* If done this way looks funny
+    @Html.LabelFor(m => m.IsSubscribedToNewsLetter)
+    @Html.CheckBoxFor(m => m.IsSubscribedToNewsLetter, new { @class = "form-control" })
+    *@
+
+    <div class="checkbox">
+        <label>
+            @Html.CheckBoxFor(m => m.IsSubscribedToNewsLetter) Subscribed To Newsletter?
+        </label>
+    </div>
+
+
+
+</div>
+}
+
