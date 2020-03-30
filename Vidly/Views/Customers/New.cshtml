@@ -12,6 +12,7 @@
 @*This BeginForm renders the form begin tag <form>*@
 @*If we wrap the Html..... in using () at the end of using it disposes the tag, and at the dispose method we can add a </form> tag  *@
 
+@* name of the target action for this form is Create, so in customer controller we need to make the create action *@
 @using (Html.BeginForm("Create", "Customers"))
 {
     @* we can either write raw html or @Html.method *@
@@ -46,6 +47,8 @@
         @Html.DropDownListFor(m => m.Customer.MembershipTypeId, new SelectList(Model.MembershipTypes, "Id", "MembershipTypeName"), "Select Membership Type", new { @class = "form-control" })
     </div>
 
+
+    <button type="submit" class="btn btn-primary">Save</button>
 
 }
 

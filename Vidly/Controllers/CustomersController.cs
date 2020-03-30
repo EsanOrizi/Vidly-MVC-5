@@ -53,6 +53,15 @@ namespace Vidly.Controllers
         }
 
 
+        // HttpPost Attribure to this action to make sure it can only be called by HttpPost not HttpGet
+        [HttpPost]
+        // Create method
+        public ActionResult Create(Customer customer)
+        {
+            return View();
+        }
+
+
         public ViewResult Index()
         {
             // 4. get the customer list from the database 
