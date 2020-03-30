@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Web.Mvc;
 using Vidly.Models;
+// import this otherwise will not recongnise viewModels, NewCustomerViewModel
+using Vidly.ViewModels;
 
 // to have Include functionality
 using System.Data.Entity;
@@ -36,8 +38,18 @@ namespace Vidly.Controllers
         // add a new action result for new customer page
         public ActionResult New()
         {
+            // get the list of membership types from the database
+            // MemebershipTypes is the DbSet
+            var membershipTypes = _context.MembershipTypes.ToList();
+            // we need to create a view model that encapsulates all the data required by this view
+            // so create newCustopmerViewModel
+            var viewModel = new NewCustomerViewModel
+            {
+                MembershipTypes = membershipTypes
+            };
 
-            return View();
+            // then pass it to the view
+            return View(viewModel);
         }
 
 

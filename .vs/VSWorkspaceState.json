@@ -3,8 +3,8 @@
     "",
     "\\packages",
     "\\Vidly",
-    "\\Vidly\\Models"
+    "\\Vidly\\Views\\Customers"
   ],
-  "SelectedNode": "\\Vidly\\Models\\Customer.cs",
+  "SelectedNode": "\\Vidly.sln",
   "PreviewInSolutionExplorer": false
 }

@@ -1,6 +1,5 @@
-﻿
-@*here we set the model for this view*@
-@model Vidly.Models.Customer 
+﻿@*here we set the model for this view*@
+@model Vidly.ViewModels.NewCustomerViewModel
 
 
 @{
@@ -15,31 +14,38 @@
 
 @using (Html.BeginForm("Create", "Customers"))
 {
-    @* we can either write raw html or @Html.method *@ 
-<div class="form-group">
+    @* we can either write raw html or @Html.method *@
+    <div class="form-group">
 
-    @* a lambda expression that specifies the name of the property of the model used in this form*@
-    @* m as in model goes to m.Name , razor view uses the name property as the label for out html property*@
-    @Html.LabelFor(m => m.Name)
-    @* new { @class = "form-control"} give a field a modern bootstrap compatible look*@
-    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
-
-    @Html.LabelFor(m => m.BirthDate)
-    @Html.TextBoxFor(m => m.BirthDate, new { @class = "form-control" })
-    
+        @* a lambda expression that specifies the name of the property of the model used in this form*@
+        @* m as in model goes to m.Name , razor view uses the name property as the label for out html property*@
+        @Html.LabelFor(m => m.Customer.Name)
+        @* new { @class = "form-control"} give a field a modern bootstrap compatible look*@
+        @Html.TextBoxFor(m => m.Customer.Name, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Customer.BirthDate)
+        @Html.TextBoxFor(m => m.Customer.BirthDate, new { @class = "form-control" })
+    </div>
     @* If done this way looks funny
-    @Html.LabelFor(m => m.IsSubscribedToNewsLetter)
-    @Html.CheckBoxFor(m => m.IsSubscribedToNewsLetter, new { @class = "form-control" })
+        @Html.LabelFor(m => m.IsSubscribedToNewsLetter)
+        @Html.CheckBoxFor(m => m.IsSubscribedToNewsLetter, new { @class = "form-control" })
     *@
 
     <div class="checkbox">
         <label>
-            @Html.CheckBoxFor(m => m.IsSubscribedToNewsLetter) Subscribed To Newsletter?
+            @Html.CheckBoxFor(m => m.Customer.IsSubscribedToNewsLetter) Subscribed To Newsletter?
         </label>
+    </div>
+    
+    <div class="form-group">
+        @Html.LabelFor(m => m.Customer.MembershipTypeId)
+        @* use SelectList to supply the items for drop down list, 'Model.MembershipTypes' is list of items
+           second peroperty specify the name of the property that holds the value of each item 'Id'
+           third property is the property that holds the text for each item  *@
+        @Html.DropDownListFor(m => m.Customer.MembershipTypeId, new SelectList(Model.MembershipTypes, "Id", "MembershipTypeName"), "Select Membership Type", new { @class = "form-control" })
     </div>
 
 
-
-</div>
 }
 

@@ -19,6 +19,7 @@ namespace Vidly.Models
         public bool IsSubscribedToNewsLetter { get; set; }
         // navigation property, allows us to navigate from customer to membership type and load both from the database
         public MembershipType MembershipType { get; set; }
+        [Display(Name = "Membership Type")]
         // this property is a foreign key 
         public byte MembershipTypeId { get; set; }
 
