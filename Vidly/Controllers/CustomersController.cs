@@ -58,7 +58,12 @@ namespace Vidly.Controllers
         // Create method
         public ActionResult Create(Customer customer)
         {
-            return View();
+            // add the customer to our db context, customer here is just in the memory
+            _context.Customers.Add(customer);
+            // so changes are peristent, to save the changes, its goes through changes and add sql statements to save the data to database
+            _context.SaveChanges();
+            // redirect the user to list of customers
+            return RedirectToAction("Index", "Customers");
         }
 
 
