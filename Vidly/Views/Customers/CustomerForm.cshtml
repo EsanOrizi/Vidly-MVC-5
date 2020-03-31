@@ -13,7 +13,7 @@
 @*If we wrap the Html..... in using () at the end of using it disposes the tag, and at the dispose method we can add a </form> tag  *@
 
 @* name of the target action for this form is Create, so in customer controller we need to make the create action *@
-@using (Html.BeginForm("Create", "Customers"))
+@using (Html.BeginForm("Save", "Customers"))
 {
     @* we can either write raw html or @Html.method *@
     <div class="form-group">
@@ -49,6 +49,13 @@
             @Html.CheckBoxFor(m => m.Customer.IsSubscribedToNewsLetter) Subscribed To Newsletter?
         </label>
     </div>
+
+
+
+    @* hidden field 'customer id' so can be used in customerController  *@
+
+    @Html.HiddenFor(m => m.Customer.Id)
+
 
     <button type="submit" class="btn btn-primary">Save</button>
 

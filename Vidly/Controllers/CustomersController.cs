@@ -42,7 +42,7 @@ namespace Vidly.Controllers
             // MemebershipTypes is the DbSet
             var membershipTypes = _context.MembershipTypes.ToList();
             // we need to create a view model that encapsulates all the data required by this view
-            // so create newCustopmerViewModel
+            // so create newCustomerViewModel
             var viewModel = new CustomerFormViewModel
             {
                 MembershipTypes = membershipTypes
@@ -53,14 +53,33 @@ namespace Vidly.Controllers
         }
 
 
-        // HttpPost Attribure to this action to make sure it can only be called by HttpPost not HttpGet
+        // HttpPost Attribute to this action to make sure it can only be called by HttpPost not HttpGet
         [HttpPost]
         // Create method
-        public ActionResult Create(Customer customer)
+        public ActionResult Save(Customer customer)
         {
+            
+            // if customer is not in the database , i.e. a new customer 
+            if (customer.Id == 0)
+            
             // add the customer to our db context, customer here is just in the memory
             _context.Customers.Add(customer);
-            // so changes are peristent, to save the changes, its goes through changes and add sql statements to save the data to database
+            // so changes are persistent, to save the changes, its goes through changes and add sql statements to save the data to database
+            // else add the customer to db
+            else 
+            {
+                // customer object in database
+                var customerInDb = _context.Customers.Single(c => c.Id == customer.Id);
+                // update the values
+                customerInDb.Name = customer.Name;
+                customerInDb.BirthDate = customer.BirthDate;
+                customerInDb.MembershipTypeId = customer.MembershipTypeId;
+                customerInDb.IsSubscribedToNewsLetter = customer.IsSubscribedToNewsLetter;
+
+            }
+            
+            
+            // save changes into database
             _context.SaveChanges();
             // redirect the user to list of customers
             return RedirectToAction("Index", "Customers");
