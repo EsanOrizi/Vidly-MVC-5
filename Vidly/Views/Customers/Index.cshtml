@@ -32,8 +32,8 @@ else
         <tbody>
             @foreach (var customer in Model)
             {
-                <tr>
-                    <td>@Html.ActionLink(customer.Name, "Details", "Customers", new { id = customer.Id }, null)</td>
+                <tr> @* Change details action to Edit action, forth argument is customer id which is sent to edit action *@
+                    <td>@Html.ActionLink(customer.Name, "Edit", "Customers", new { id = customer.Id }, null)</td>
                     @* we need to eager load MembershipType table, will get null exception if don't, can also add % symbol after the c#  *@
                     <td>@customer.MembershipType.MembershipTypeName</td>
                 </tr>

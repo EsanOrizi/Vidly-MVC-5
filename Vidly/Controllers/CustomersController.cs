@@ -43,13 +43,13 @@ namespace Vidly.Controllers
             var membershipTypes = _context.MembershipTypes.ToList();
             // we need to create a view model that encapsulates all the data required by this view
             // so create newCustopmerViewModel
-            var viewModel = new NewCustomerViewModel
+            var viewModel = new CustomerFormViewModel
             {
                 MembershipTypes = membershipTypes
             };
 
             // then pass it to the view
-            return View(viewModel);
+            return View("CustomerForm", viewModel);
         }
 
 
@@ -103,7 +103,29 @@ namespace Vidly.Controllers
             return View(customer);
         }
 
-
+        // Edit action 
+        public ActionResult Edit(int id)
+        {
+            // need to get the customer with this Id from the database
+            var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
+            // if the customer exists in the database it will be returned otherwise we get null
+            // so need to check for that
+            if (customer == null)
+                return HttpNotFound();
+            // otherwise use the given customer to render customer form
+            var viewModel = new CustomerFormViewModel
+            {
+                // set cusomer to this object
+                Customer = customer,
+                // initialize membership types, get it from database
+                MembershipTypes = _context.MembershipTypes.ToList()
+             }; 
+        
+            
+            // we need to override convension and give return the view to return otherwise it will return edit view
+            // second argument we pass the viewModel to our view
+            return View("CustomerForm", viewModel);
+        }
 
 
         // 0. get rid of this method and get the list of customers from the database
