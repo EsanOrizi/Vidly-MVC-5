@@ -6,7 +6,11 @@ using Vidly.ViewModels;
 using System.Linq;
 // need this for (m => m.Genre)
 using System.Data.Entity;
+using System.Web.Razor;
 using System.Web.UI.WebControls;
+
+
+
 
 namespace Vidly.Controllers
 {
@@ -35,10 +39,21 @@ namespace Vidly.Controllers
         public ActionResult New()
         {
             var genres = _context.Genres.ToList();
-            var viewModel = new NewMovieViewModel {Genres = genres};
+            var viewModel = new MovieFormViewModel {Genres = genres};
 
-            return View(viewModel);
+            return View("CustomerForm", viewModel);
         }
+
+
+        [HttpPost]
+        public ActionResult Create(Movie movie)
+        {
+            _context.Movies.Add(movie);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Movies");
+        }
+
 
 
         public ViewResult Index()
@@ -60,24 +75,6 @@ namespace Vidly.Controllers
         }
 
 
-
-
-
-        //public ViewResult Index()
-        //{
-        //    var movies = GetMovies();
-
-        //    return View(movies);    
-        //}
-
-        //private IEnumerable<Movie> GetMovies()
-        //{
-        //    return new List<Movie>
-        //    {
-        //        new Movie { Id = 1, Name = "Shrek" },
-        //        new Movie { Id = 2, Name = "Wall-e" }
-        //    };
-        //}
 
 
 
@@ -123,6 +120,29 @@ namespace Vidly.Controllers
             };
 
             return View(viewModel);
+        }
+
+      public ActionResult Edit(int id)
+        {
+            // need to get the customer with this Id from the database
+            var movie = _context.Movies.SingleOrDefault(m => m.Id == id);
+            // if the customer exists in the database it will be returned otherwise we get null
+            // so need to check for that
+            if (movie == null)
+                return HttpNotFound();
+            // otherwise use the given customer to render customer form
+            var viewModel = new MovieFormViewModel
+            {
+                // set cusomer to this object
+                Movie = movie,
+                // initialize membership types, get it from database
+                Genres = _context.Genres.ToList()
+             }; 
+        
+            
+            // we need to override convension and give return the view to return otherwise it will return edit view
+            // second argument we pass the viewModel to our view
+            return View("CustomerForm", viewModel);
         }
     }
 }

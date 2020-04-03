@@ -26,7 +26,7 @@
                 @foreach (var movie in Model)
                 {
                     <tr>
-                        <td>@Html.ActionLink(movie.Name, "Details", "Movies", new { id = movie.Id }, null)</td>
+                        <td>@Html.ActionLink(movie.Name, "Edit", "Movies", new { id = movie.Id }, null)</td>
                         @* we need to eager load MembershipType table, will get null exception if don't, can also add % symbol after the c#  *@
                         <td>@movie.Genre.Name</td>
                     </tr>
