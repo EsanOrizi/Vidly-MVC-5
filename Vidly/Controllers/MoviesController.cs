@@ -6,6 +6,7 @@ using Vidly.ViewModels;
 using System.Linq;
 // need this for (m => m.Genre)
 using System.Data.Entity;
+using System.Web.UI.WebControls;
 
 namespace Vidly.Controllers
 {
@@ -28,6 +29,15 @@ namespace Vidly.Controllers
         protected override void Dispose(bool disposing)
         {
             _context.Dispose();
+        }
+
+
+        public ActionResult New()
+        {
+            var genres = _context.Genres.ToList();
+            var viewModel = new NewMovieViewModel {Genres = genres};
+
+            return View(viewModel);
         }
 
 
